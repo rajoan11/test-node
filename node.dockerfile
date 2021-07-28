@@ -1,0 +1,21 @@
+FROM node:14.17.3-alpine3.11
+ENV NODE_ENV=development
+ENV NODE_PORT=3001
+ENV MONGODB_URI=mongodb://api:docker1234@mongo:27017/mydatabase
+ENV JWT_SECRET=AAAAB3NzaC1yc2EAAAABJQAAAQEArwH/4e8E7YiosdOdNxJ0iwxqynG2+UE7uMrE
+ENV JWT_EXPIRATION=172800
+ENV DATABASE_CONNECTION=mongodb
+ENV DATABASE_HOST=mongo
+ENV MONGO_INITDB_ROOT_USERNAME=api
+ENV MONGO_INITDB_ROOT_PASSWORD=docker1234
+ENV DATABASE_NAME=mydatabase
+ENV DATABASE_PORT=27017
+ENV DATABASE_SYNCHRONIZE=true
+ENV DATABASE_LOGGING=true
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY . .
+RUN npm cach clean --force && rm -Rf node_modules && npm install
+
+EXPOSE ${NODE_PORT}
+CMD [ "npm", "run",  "start" ]

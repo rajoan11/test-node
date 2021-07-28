@@ -1,0 +1,41 @@
+version: "3.4"
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    volumes:
+      - dbdata:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=mydatabase
+      - MONGO_INITDB_ROOT_USERNAME=api
+      - MONGO_INITDB_ROOT_PASSWORD=docker1234
+    networks:
+      - api
+
+  node:
+    build:
+      context: .
+      dockerfile: node.dockerfile
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    ports:
+      - 3001:3001
+    depends_on:
+      - mongo
+    networks:
+      - api
+    environment:
+      - URL_MONGO=mongodb://api:docker1234@mongo:27017
+
+networks:
+  api:
+    driver: bridge
+
+volumes:
+  dbdata:
+  node_modules:

@@ -1,0 +1,189 @@
+{
+    "extends": ["tslint-sonarts"],
+    "rules": {
+        // Added/modified rules:
+        "import-blacklist": [
+            // Disallows importing blacklisted modules directly. Instead only sub modules may be imported from that module.
+            true,
+            "rxjs",
+            "rxjs/Rx",
+            "lodash"
+        ],
+        "no-any": true, // Disallows usages of any. Using any as a type declaration nullifies the compile-time benefits of the type system:
+        "no-inferrable-types": [
+            // Disallows explicit type declarations for variables or parameters initialized to a number, string, boolean. Make code more verbose
+            true,
+            "ignore-params"
+        ],
+        "semicolon": [true, "always"], // Enforces consistent semicolon usage at the end of every statement.
+        "arrow-return-shorthand": [true, "multiline"], // Suggests to convert () => { return x; } to () => x,  then this will warn even if the function spans multiple lines.
+        "no-consecutive-blank-lines": true, // Disallows one or more blank lines in a row.
+        "only-arrow-functions": true, // Only arrow function
+        "object-literal-shorthand": true, // Enforces use of ES6 object literal shorthand.
+        "prefer-switch": [
+            true,
+            {
+                "min-cases": 2
+            }
+        ], // Prefer a switch statement to an if statement with simple === comparisons.
+        "prefer-template": true, // Prefer a template expression over string literal concatenation.
+        "no-console": true, // Bans the use of specified console methods, console methods aren’t appropriate for production code.
+        "member-ordering": [
+            // Enforces member ordering, a consistent ordering for class members can make classes easier to read, navigate, and edit.
+            false, // Disabled for the moment
+            {
+                "order": [
+                    "public-static-field",
+                    "public-instance-field",
+                    "public-constructor",
+                    "private-constructor",
+                    "private-static-field",
+                    "private-instance-field",
+                    "public-instance-method",
+                    "protected-instance-method",
+                    "private-instance-method"
+                ],
+                "alphabetize": true
+            }
+        ],
+        "no-parameter-reassignment": true, // Disallows reassigning parameters
+        "prefer-for-of": true, // Recommends a ‘for-of’ loop over a standard ‘for’ loop if the index is only used to access the array being iterated
+        "unified-signatures": true, // Seems not working
+        "curly": true, // Enforces braces for if/for/do/while statements.
+        "forin": true, // Requires a for ... in statement to be filtered with an if statement.
+        "no-bitwise": true, // Disallows bitwise operators which are typos or indicator of overly clever code which decreases maintainability.
+        "no-conditional-assignment": true, // Disallows any type of assignment in conditionals
+        "no-debugger": true, // Disallows debugger statements: In general, debugger statements aren’t appropriate for production code.
+        "no-duplicate-super": true, // Warns if ‘super()’ appears twice in a constructor. The second call to ‘super()’ will fail at runtime.
+        "no-empty": true, // Disallows empty blocks: Empty blocks are often indicators of missing code
+        "no-floating-promises": false, // Seems not working
+        "no-for-in-array": true, // Seems not working
+        "no-invalid-template-strings": true, // Seems not working
+        "no-null-keyword": false, // Disallows use of the null keyword literal: this rule ensures that only undefined is used.
+        "no-shadowed-variable": true, // Disallows shadowing variable declarations
+        "no-sparse-arrays": true, // Forbids array literals to contain missing elements: Missing elements are probably an accidentally duplicated comma.
+        "no-string-literal": true, // Forbids unnecessary string literal property access. Allows obj["prop-erty"], disallows obj["property"] (should be obj.property).
+        "switch-default": true, // Require a default case in all switch statements
+        "no-switch-case-fall-through": true, // Disallows falling through case statements: Fall though in switch statements is often unintentional and a bug
+        "no-this-assignment": [
+            // Disallows unnecessary references to this: symptom of pre-ES6 practices or not manging scope well
+            true,
+            {
+                "allow-destructuring": true
+            }
+        ],
+        "no-unsafe-finally": true, // Seems not working
+        "no-unused-expression": [
+            // Disallows unused expression statements: Detects potential errors where an assignment or function call was intended.
+            true,
+            "allow-fast-null-checks"
+        ],
+        "no-unused-variable": true, // Disallows unused imports, variables, functions and private class members
+        "no-use-before-declare": true,
+        "no-var-keyword": true, // Disallows usage of the var keyword
+        "prefer-conditional-expression": true, // Recommends to use a conditional expression instead of assigning to the same thing in each branch of an if statement.
+        "restrict-plus-operands": true, // Seems not working
+        "triple-equals": true, // Requires === and !== in place of == and !=
+        "typeof-compare": false, // Deprecated! Makes sure result of typeof is compared to correct string values: "object", "boolean", "function", "number", "string", "undefined"
+        "use-isnan": true, // Enforces use of the isNaN() function to check for NaN references instead of a comparison to the NaN constant.
+        "cyclomatic-complexity": [true, 7], // Enforces a threshold of cyclomatic complexity: High cyclomatic complexity indicates confusing code which may be prone to errors or difficult to modify.
+        "eofline": true,
+        "indent": [true, "spaces", 4], // Seems not working
+        "max-line-length": [true, 140],
+        "prefer-const": [
+            // Requires that variable declarations use const instead of let and var if possible: “all” - Only warns if all variables in destructuring can be const.
+            true,
+            {
+                "destructuring": "all"
+            }
+        ],
+        "no-duplicate-imports": true,
+        "no-require-imports": true,
+        "max-classes-per-file": [false, 1], // A file may not contain more than one number of classes
+        "align": [
+            // Enforces vertical alignment: Helps maintain a readable, consistent style in your codebase.
+            true,
+            "parameters",
+            "statements",
+            "members"
+        ],
+        "binary-expression-operand-order": true, // A literal should always be on the right-hand side
+        "class-name": true, // Enforces PascalCased class and interface names
+        "comment-format": [true, "check-space"],
+        "import-spacing": true,
+        "variable-name": [
+            // Checks variable names for various errors
+            true,
+            "ban-keywords",
+            "check-format"
+        ],
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-module",
+            "check-separator",
+            "check-type",
+            "check-rest-spread",
+            "check-type",
+            "check-typecast",
+            "check-type-operator",
+            "check-preblock"
+        ],
+        "newline-before-return": true, // Enforces blank line before return when not the only line in the block
+        "max-file-line-count": [true, 400], // Requires files to remain under a certain number of lines
+        // Dafault rules:
+        "callable-types": true,
+        "interface-over-type-literal": true,
+        "label-position": true,
+        "member-access": false,
+        "no-arg": true,
+        "no-construct": true,
+        "no-empty-interface": true,
+        "no-eval": true,
+        "no-misused-new": true,
+        "no-non-null-assertion": true,
+        "no-string-throw": true,
+        "no-trailing-whitespace": true,
+        "no-unnecessary-initializer": true,
+        "object-literal-sort-keys": false,
+        "one-line": [true, "check-open-brace", "check-catch", "check-else", "check-whitespace"],
+        "quotemark": [true, "single"],
+        "radix": true,
+        "typedef-whitespace": [
+            true,
+            {
+                "call-signature": "nospace",
+                "index-signature": "nospace",
+                "parameter": "nospace",
+                "property-declaration": "nospace",
+                "variable-declaration": "nospace"
+            }
+        ],
+        // SonarTs rules:
+        "no-unnecessary-semicolons": false,
+        "no-unused-array": true,
+        "cognitive-complexity": [
+            // Enforce a threshold of cognitive complexity: Functions with high Cognitive Complexity will be difficult to maintain.
+            true,
+            7
+        ],
+        "mccabe-complexity": [
+            // Same as cyclomatic-complexity rule
+            true,
+            7
+        ],
+        "no-big-function": [
+            // Requires functions/methods to remain under a certain number of lines
+            true,
+            35
+        ],
+        "no-dead-store": true, // Seems not working
+        "parameters-max-number": [
+            // Requires functions/methods to not have a long parameter list
+            true,
+            4
+        ]
+    }
+}
