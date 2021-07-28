@@ -8,6 +8,9 @@ import * as cors from "cors";
 import passport from "./app.authentication";
 import { logger, morganStream } from "./app.logger";
 import { appRoutes } from "./app.routes";
+// import * as swaggerJSDoc from "swagger-jsdoc";
+import swaggerDocument = require("../../swagger.json");
+import * as swaggerUi from "swagger-ui-express";
 
 export class App {
   private app: express.Application;
@@ -37,6 +40,29 @@ export class App {
 
   private initRoutes() {
     this.app.use("/api/v1", appRoutes);
+    // const options = {
+    //   definition: {
+    //     openapi: "3.0.0",
+    //     info: {
+    //       title: "API TEST",
+    //       version: "1.0.0",
+    //     },
+    //   },
+    //   apis: [
+    //     "./app.routes.ts",
+    //     ".src/app/car/car.route.ts",
+    //     ".src/app/car/user.route.ts",
+    //     ".src/app/car/authentication.route.ts",
+    //   ],
+    // };
+    // const swaggerSpec = swaggerJSDoc(options);
+    this.app.use(
+      "/api-docs",
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument)
+    );
+
+    // this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   }
 
   private initStatics() {

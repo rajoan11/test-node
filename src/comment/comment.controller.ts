@@ -1,10 +1,6 @@
 import { Request, Response } from "express";
-import { ControllerRead } from "../common/controller/controller-read.interface";
-import { ControllerWrite } from "../common/controller/controller-write.interface";
 import { Comment } from "./comment.model";
 import { commentService } from "./comment.service";
-
-const notImplemented = "Method not implemented.";
 
 class CommentController {
   getList(req: Request, res: Response): void {

@@ -63,7 +63,7 @@
           "brand": {
             "type": "string"
           },
-          "commentModel": {
+          "carModel": {
             "type": "string"
           },
           "color": {
@@ -73,16 +73,35 @@
             "type": "string"
           },
           "seats": {
-            "type": "string"
+            "type": "number"
           },
           "doors": {
-            "type": "string"
+            "type": "number"
           },
           "releaseYears": {
-            "type": "date"
+            "type": "string",
+            "format": "date-time"
           },
           "photo": {
             "type": "string"
+          }
+        }
+      },
+      "comment": {
+        "type": "object",
+        "properties": {
+          "idCar": {
+            "type": "string"
+          },
+          "idUser": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "dateCreation": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       }
@@ -194,9 +213,9 @@
     },
     "/car": {
       "get": {
-        "tags": ["pilgrim"],
-        "summary": "Retrieve all pillgrim",
-        "description": "Retrieve all pillgrim",
+        "tags": ["car"],
+        "summary": "Retrieve all car",
+        "description": "Retrieve all car",
         "consumes": ["application/json", "application/xml"],
         "produces": ["application/xml", "application/json"],
         "responses": {
@@ -207,7 +226,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/pilgrim"
+                    "$ref": "#/components/schemas/car"
                   }
                 }
               },
@@ -215,7 +234,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/pilgrim"
+                    "$ref": "#/components/schemas/car"
                   }
                 }
               }
@@ -228,8 +247,8 @@
         }
       },
       "post": {
-        "tags": ["Pilgrim"],
-        "summary": "Register new Pilgrim",
+        "tags": ["car"],
+        "summary": "Register new car",
         "description": "",
         "consumes": ["application/json", "application/xml"],
         "produces": ["application/xml", "application/json"],
@@ -237,7 +256,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/pilgrim"
+                "$ref": "#/components/schemas/car"
               }
             }
           }
@@ -250,7 +269,7 @@
                 "schema": {
                   "type": "object",
                   "items": {
-                    "$ref": "#/components/schemas/pilgrim"
+                    "$ref": "#/components/schemas/car"
                   }
                 }
               },
@@ -258,7 +277,7 @@
                 "schema": {
                   "type": "object",
                   "items": {
-                    "$ref": "#/components/schemas/pilgrim"
+                    "$ref": "#/components/schemas/car"
                   }
                 }
               }
@@ -275,16 +294,20 @@
         }
       }
     },
-    "/comment": {
+    "/car/{id}": {
       "get": {
-        "security": [
+        "tags": ["car"],
+        "summary": "Retrieve car",
+        "description": "Retrieve car by id",
+        "parameters": [
           {
-            "bearerAuth": []
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": { "type": "string" }
           }
         ],
-        "tags": ["pilgrim"],
-        "summary": "Retrieve all pillgrim",
-        "description": "Retrieve all pillgrim",
         "consumes": ["application/json", "application/xml"],
         "produces": ["application/xml", "application/json"],
         "responses": {
@@ -295,7 +318,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/pilgrim"
+                    "$ref": "#/components/schemas/car"
                   }
                 }
               },
@@ -303,7 +326,48 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/pilgrim"
+                    "$ref": "#/components/schemas/car"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/comment": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Comment"],
+        "summary": "Retrieve all comment",
+        "description": "Retrieve all comment",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/xml", "application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/comment"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/comment"
                   }
                 }
               }
@@ -321,8 +385,8 @@
             "bearerAuth": []
           }
         ],
-        "tags": ["Pilgrim"],
-        "summary": "Register new Pilgrim",
+        "tags": ["Comment"],
+        "summary": "Register new comment",
         "description": "",
         "consumes": ["application/json", "application/xml"],
         "produces": ["application/xml", "application/json"],
@@ -330,7 +394,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/pilgrim"
+                "$ref": "#/components/schemas/comment"
               }
             }
           }
@@ -343,7 +407,7 @@
                 "schema": {
                   "type": "object",
                   "items": {
-                    "$ref": "#/components/schemas/pilgrim"
+                    "$ref": "#/components/schemas/comment"
                   }
                 }
               },
@@ -351,7 +415,7 @@
                 "schema": {
                   "type": "object",
                   "items": {
-                    "$ref": "#/components/schemas/pilgrim"
+                    "$ref": "#/components/schemas/comment"
                   }
                 }
               }
@@ -363,6 +427,56 @@
           },
           "401": {
             "description": "Unothorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/comment/{idCar}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Comment"],
+        "summary": "Retrieve all comment by ID Car",
+        "description": "Retrieve all comment by ID Car",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/xml", "application/json"],
+        "parameters": [
+          {
+            "name": "idCar",
+            "in": "path",
+            "description": "ID Car",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/comment"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/comment"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
             "content": {}
           }
         }

@@ -36,7 +36,7 @@ const jwtStrategy = new JwtStrategy(
     secretOrKey: config.jwt.secretKey,
     jwtFromRequest: ExtractJwt.fromExtractors([
       extractTokenFromParams,
-      ExtractJwt.fromAuthHeaderWithScheme("jwt"),
+      ExtractJwt.fromAuthHeaderWithScheme("Bearer"),
     ]),
   },
   async (jwtPayload, done) => {

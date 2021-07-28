@@ -13,6 +13,15 @@ class AppRouter {
   }
 
   init() {
+    /**
+     * @openapi
+     * /:
+     *   get:
+     *     description: test API
+     *     responses:
+     *       200:
+     *         description: return API is OK.
+     */
     this.router.get("/api-status", (req, res) =>
       res.json({ status: "API is OK" })
     );
